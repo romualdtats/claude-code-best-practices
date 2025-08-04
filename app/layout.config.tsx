@@ -15,14 +15,25 @@ export const baseOptions: BaseLayoutProps = {
           width="24"
           height="24"
           xmlns="http://www.w3.org/2000/svg"
-          aria-label="Logo"
+          aria-label="ClaudeCode Logo"
         >
           <circle cx={12} cy={12} r={12} fill="currentColor" />
         </svg>
-        My App
+        ClaudeCode Docs
       </>
     ),
   },
   // see https://fumadocs.dev/docs/ui/navigation/links
-  links: [],
+  links: [
+    {
+      text: 'GitHub',
+      url: 'https://github.com/anthropics/claude-code',
+      external: true,
+    },
+    {
+      text: 'Official Docs',
+      url: 'https://claude.ai/code',
+      external: true,
+    },
+  ],
 };

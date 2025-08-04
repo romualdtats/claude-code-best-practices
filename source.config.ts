@@ -4,17 +4,38 @@ import {
   frontmatterSchema,
   metaSchema,
 } from 'fumadocs-mdx/config';
+import { z } from 'zod';
 
-// You can customise Zod schemas for frontmatter and `meta.json` here
-// see https://fumadocs.vercel.app/docs/mdx/collections#define-docs
-export const docs = defineDocs({
+// Define custom schema with language support
+const customFrontmatterSchema = frontmatterSchema.extend({
+  // Add language field for content
+  lang: z.enum(['en', 'zh']).optional(),
+});
+
+// English documentation
+export const docsEn = defineDocs({
+  dir: 'content/docs/en',
   docs: {
-    schema: frontmatterSchema,
+    schema: customFrontmatterSchema,
   },
   meta: {
     schema: metaSchema,
   },
 });
+
+// Chinese documentation
+export const docsZh = defineDocs({
+  dir: 'content/docs/zh',
+  docs: {
+    schema: customFrontmatterSchema,
+  },
+  meta: {
+    schema: metaSchema,
+  },
+});
+
+// Keep the original for backward compatibility (defaults to English)
+export const docs = docsEn;
 
 export default defineConfig({
   mdxOptions: {
