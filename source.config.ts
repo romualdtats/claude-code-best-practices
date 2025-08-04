@@ -12,9 +12,9 @@ const customFrontmatterSchema = frontmatterSchema.extend({
   lang: z.enum(['en', 'zh']).optional(),
 });
 
-// English documentation
-export const docsEn = defineDocs({
-  dir: 'content/docs/en',
+// Single docs configuration that supports multiple languages
+export const docs = defineDocs({
+  dir: 'content/docs',
   docs: {
     schema: customFrontmatterSchema,
   },
@@ -22,20 +22,6 @@ export const docsEn = defineDocs({
     schema: metaSchema,
   },
 });
-
-// Chinese documentation
-export const docsZh = defineDocs({
-  dir: 'content/docs/zh',
-  docs: {
-    schema: customFrontmatterSchema,
-  },
-  meta: {
-    schema: metaSchema,
-  },
-});
-
-// Keep the original for backward compatibility (defaults to English)
-export const docs = docsEn;
 
 export default defineConfig({
   mdxOptions: {
