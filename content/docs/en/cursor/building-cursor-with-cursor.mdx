@@ -1,0 +1,128 @@
+---
+title: "Building Cursor with Cursor: A Real-World Example"
+description: "A detailed case study of using Cursor AI to build Cursor itself, including challenges, failures, and lessons learned about AI-assisted development."
+language: "en"
+author: "Lee Robinson"
+source: "https://x.com/leerob"
+date: "2025-01-15"
+---
+
+# Building Cursor with Cursor: A Real-World Example
+
+Here's an example of how I used Cursor to build Cursor. And where AI models failed and human review was necessary!
+
+## The Challenge: Adding a /compress Command
+
+I wanted to add a `/compress` command to summarize all messages in a conversation. This is helpful because you can manually decide to reset your context window, especially after longer conversations.
+
+I described the behavior that I wanted. Here was my first prompt:
+
+> "Add a new command to @src/commands/ to /compress the current chat. The /compress command should look at all messages in the chat, and then make an LLM call to the selected model to summarize and compress into a single message, clearing the context window."
+
+Notice how I tagged `@src/commands/` so that it would pull other examples of slash commands into the context!
+
+## Initial Implementation
+
+Because the client has type checking, linting, and tests set up, Cursor agent was able to make a series of changes and then validate its outputs. There were some mistakes, which it saw the results for, and fixed.
+
+As Cursor was generating code, I reviewed the diffs inside the editor to make sure things looked okay. After a few rounds back and forth, the code looked mostly correct and the tests passed, so I tried it out running locally.
+
+**It worked!** Great... now to just polish it off and make a PR.
+
+## First Issue: Memory Leak
+
+Cleaned things up, made the PR, and asked for some reviews (since I am still new to this codebase). Cursor Bugbot ran on the PR and told me there was a memory leak 🤦
+
+Yep, didn't think about that. I reviewed its suggestion and it was right, so I applied the change locally.
+
+## Architecture Review
+
+But then I got a comment from a teammate:
+
+> "Should the summarization prompt happen on the backend versus the client so we can reuse the same logic for multiple clients?"
+
+Good point. The code Cursor had produced was right! That doesn't mean it was the correct architecture though. I agreed with his suggestion, so I went back to refactor.
+
+## Refactoring to Backend
+
+Here was my next prompt in a new chat (for a fresh context window):
+
+> "Move @compress.tsx to the backend app so we can use this functionality across different clients. Follow existing patterns for talking to the backend RPC."
+
+I tagged `@compress.tsx` again so it's back in the context (remember, the LLM doesn't retain the working memory between chats). I asked it to follow existing patterns, hoping this would be specific enough.
+
+Cursor went and generated some code. It added new protobufs (to serialize structured data between client/server) and a function to call. It updated the client to talk to this new logic.
+
+Again, the code looked okay, so I asked it to write tests. The backend tests needed to have a local instance of Docker running (to set up the environment), so it helped me go through that setup (running the necessary commands in the terminal).
+
+## The Hidden Bug
+
+Once done, I fired up the client to test the integration between client/server. I ran `/compress` and it didn't work. What!? All of the tests passed! Linting passed! How is this possible?
+
+LLMs can trick you into thinking the logic works, even when it doesn't really work. There was a runtime issue, something that wasn't caught by the compile-time checks.
+
+I re-read the code carefully. Keep in mind, I don't have familiarity with this codebase yet, so I'm still trying to learn what exists.
+
+## Discovering Existing Logic
+
+As I'm digging through the agent files, I notice something interesting – there's existing logic to handle summarization! If you hit the context window limit (e.g. 200K tokens with Sonnet 4), Cursor agent can automatically summarize the existing conversation for you. It also doesn't use your current model to do this, but a smaller and faster flash model.
+
+That makes sense. But wait... look at my original prompt:
+
+> "make an LLM call to the selected model to summarize and compress into a single message, clearing the context window."
+
+The AI wasn't wrong, I told it to use the selected model. I was wrong!
+
+Now look at my prompt to add the backend logic again:
+
+> "Move @compress.tsx to the backend app so we can use this functionality across different clients. Follow existing patterns for talking to the backend RPC."
+
+Did I say to consider whether this logic might have already existed elsewhere? Nope. I told it to make something new.
+
+## The Lesson: Intent Matters
+
+Now, maybe AGI will figure this out for me, but this is precisely where you can go wrong with AI models today. **Your intent matters!**
+
+With this discovery, I went back to the agent. Turns out some of this logic already exists on the backend, and it's better than what I had, so let's use that instead.
+
+Cursor was able to delete what it had started for the backend, examine the existing logic, and decide how to expose it to the client. Internally, the backend could already `summarizeConversation()`, but there wasn't a public method. So Cursor updated the protobuf schema to add a new method, which could then be called from the client.
+
+## Debugging and Final Fix
+
+Still, I ran things locally, and it didn't work. There was a bug somewhere. I asked Cursor to help me add some logging to debug the flow throughout client/server, and then ran it again.
+
+I'm able to pipe the raw terminal output back to the agent for review. The agent spotted the error faster than myself, and it suggested a fix. Tested... it works! 🎉
+
+Now I asked Cursor to clean up the debug logs and help me write a PR summary. I confirmed all the tests passed and we're now ready for more reviews.
+
+## Key Takeaways
+
+This is the reality of coding with AI. It's not perfect. You get reps in working with these models to understand:
+
+- **What parts you can do well**
+- **What parts the agent can do well** 
+- **How you can work together**
+
+You learn how to review work while the agent is running. You lean on code review agents to validate the output and help you catch sneaky bugs.
+
+## Lessons Learned
+
+1. **Context Management**: Use fresh context windows for new tasks
+2. **Intent Clarity**: Be specific about what you want, but also consider existing solutions
+3. **Human Review**: Always review AI-generated code, even when tests pass
+4. **Architecture First**: Consider the broader system design before implementation
+5. **Debugging Together**: Use AI to help debug, but maintain human oversight
+
+The key insight is that AI is a powerful tool, but it requires human guidance, review, and sometimes correction. The best results come from collaboration between human expertise and AI capabilities.
+
+---
+
+## 来源和致谢
+
+本文基于 Lee Robinson 在 Twitter 上分享的实战经验整理而成。
+
+**原作者**: Lee Robinson  
+**原始链接**: https://x.com/leerob  
+**发布日期**: 2025年1月15日  
+
+感谢 Lee Robinson 分享这个宝贵的 Cursor 实战案例，展示了 AI 辅助开发的真实挑战和解决方案。 

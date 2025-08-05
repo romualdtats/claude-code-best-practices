@@ -41,6 +41,10 @@ alwaysApply: false
    - 获取原始文章的完整链接
    - 提取或确定文章的发布日期
    - 记录任何相关的版权声明或使用许可
+   - **GitHub 项目特殊处理**:
+     - 在文章标题下方突出显示 GitHub 链接和 Star 数量
+     - 格式：`> **⭐ GitHub**: [owner/repo](https://github.com/owner/repo) (X.Xk stars)`
+     - 优先展示项目的受欢迎程度和活跃度
 
 6. **英文文档创建**
    - 创建文件到 `content/docs/en/best-practices/`
