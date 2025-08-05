@@ -1,0 +1,229 @@
+---
+title: "Claude Code Router"
+description: "Powerful Claude Code routing tool with multi-model intelligent routing and cost optimization"
+language: "en"
+---
+
+# Claude Code Router
+
+Claude Code Router is a powerful routing tool that allows you to build coding infrastructure based on Claude Code, while letting you decide how to interact with models and enjoy updates from Anthropic.
+
+**GitHub**: [musistudio/claude-code-router](https://github.com/musistudio/claude-code-router)  
+**Stars**: 10.3k+  
+**License**: MIT
+
+## 🚀 Core Features
+
+### Multi-Model Intelligent Routing
+- **Smart Routing**: Automatically selects appropriate models based on task type
+- **Cost Optimization**: Uses smaller local models for background tasks
+- **Long Context Handling**: Dedicated models for long context tasks (>60K tokens)
+- **Reasoning Enhancement**: Specialized models for reasoning-intensive tasks
+
+### Multi-Provider Support
+- **OpenAI**: Complete OpenAI API support
+- **Anthropic**: Native Claude API support
+- **DeepSeek**: Adapted for DeepSeek API
+- **Gemini**: Google Gemini API support
+- **OpenRouter**: Multi-provider routing support
+- **Groq**: High-performance inference support
+
+### Transformer System
+- **maxtoken**: Sets specific max_tokens values
+- **tooluse**: Optimizes tool usage via tool_choice
+- **reasoning**: Processes reasoning_content field
+- **sampling**: Handles temperature, top_p, top_k, and other sampling parameters
+- **enhancetool**: Adds error tolerance layer to tool call parameters
+
+## 📦 Installation and Configuration
+
+### Quick Start
+
+```bash
+# Install
+bunx @musistudio/claude-code-router@latest
+
+# Create config directory
+mkdir -p $HOME/.claude-code-router
+
+# Copy example config
+cp config.example.json $HOME/.claude-code-router/config.json
+```
+
+### Basic Configuration
+
+```json
+{
+  "log": true,
+  "OPENAI_API_KEY": "your-api-key",
+  "OPENAI_BASE_URL": "https://api.deepseek.com",
+  "OPENAI_MODEL": "deepseek-chat",
+  "router": {
+    "default": "openrouter,anthropic/claude-3.5-sonnet",
+    "background": "openrouter,anthropic/claude-3-haiku",
+    "think": "openrouter,anthropic/claude-3.5-sonnet",
+    "longContext": "openrouter,anthropic/claude-3.5-sonnet",
+    "longContextThreshold": 60000
+  }
+}
+```
+
+## 🔧 Routing Configuration
+
+### Default Routing Scenarios
+
+```json
+{
+  "router": {
+    "default": "openrouter,anthropic/claude-3.5-sonnet",
+    "background": "openrouter,anthropic/claude-3-haiku",
+    "think": "openrouter,anthropic/claude-3.5-sonnet",
+    "longContext": "openrouter,anthropic/claude-3.5-sonnet",
+    "webSearch": "openrouter,anthropic/claude-3.5-sonnet:online"
+  }
+}
+```
+
+### Dynamic Model Switching
+
+Use the `/model` command in Claude Code to dynamically switch models:
+
+```
+/model openrouter,anthropic/claude-3.5-sonnet
+```
+
+## ⚡ Advanced Features
+
+### Custom Router
+
+Create custom routing logic:
+
+```javascript
+// $HOME/.claude-code-router/custom-router.js
+module.exports = async function router(req, config) {
+  const userMessage = req.body.messages.find((m) => m.role === "user")?.content;
+
+  if (userMessage && userMessage.includes("explain this code")) {
+    return "openrouter,anthropic/claude-3.5-sonnet";
+  }
+
+  return null; // Fallback to default router
+};
+```
+
+### Subagent Routing
+
+Specify a particular model at the beginning of subagent prompts:
+
+```
+<CCR-SUBAGENT-MODEL>openrouter,anthropic/claude-3.5-sonnet</CCR-SUBAGENT-MODEL>
+Please help me analyze this code snippet for potential optimizations...
+```
+
+### GitHub Actions Integration
+
+Integrate Claude Code Router into CI/CD pipelines:
+
+```yaml
+name: Claude Code
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Environment
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          mkdir -p $HOME/.claude-code-router
+          cat << 'EOF' > $HOME/.claude-code-router/config.json
+          {
+            "log": true,
+            "OPENAI_API_KEY": "${{ secrets.OPENAI_API_KEY }}",
+            "OPENAI_BASE_URL": "https://api.deepseek.com",
+            "OPENAI_MODEL": "deepseek-chat"
+          }
+          EOF
+
+      - name: Start Claude Code Router
+        run: |
+          nohup ~/.bun/bin/bunx @musistudio/claude-code-router@1.0.8 start &
+
+      - name: Run Claude Code
+        uses: anthropics/claude-code-action@beta
+        env:
+          ANTHROPIC_BASE_URL: http://localhost:3456
+        with:
+          anthropic_api_key: "any-string-is-ok"
+```
+
+## 🎯 Use Cases
+
+### 1. Cost Optimization
+- Use smaller models for simple tasks
+- Run tasks during off-peak hours
+- Reduce API call costs through intelligent routing
+
+### 2. Performance Optimization
+- Use dedicated models for long context tasks
+- Use high-performance models for reasoning tasks
+- Use lightweight models for background tasks
+
+### 3. Multi-Provider Support
+- Avoid single provider limitations
+- Leverage advantages of different providers
+- Improve service availability
+
+## 💡 Best Practices
+
+### Configuration Recommendations
+
+1. **Set appropriate thresholds**: Adjust longContextThreshold based on project requirements
+2. **Monitor usage**: Enable logging to monitor model usage
+3. **Regular updates**: Keep tools and configurations up to date
+4. **Test configurations**: Thoroughly test configurations before production
+
+### Security Considerations
+
+1. **API key management**: Store sensitive information using environment variables
+2. **Access control**: Limit router access permissions
+3. **Log security**: Avoid logging sensitive information
+
+## 🤝 Community Support
+
+### Sponsorship Support
+
+The project supports multiple sponsorship methods:
+- Ko-fi
+- PayPal
+- Alipay
+- WeChat Pay
+
+### Contribution Guidelines
+
+Welcome contributions through:
+1. Submit Issues to report problems
+2. Create Pull Requests to contribute code
+3. Share usage experiences and best practices
+4. Sponsor project development
+
+## 📝 Summary
+
+Claude Code Router provides powerful routing capabilities for Claude Code, enabling you to:
+
+- **Flexibly select models**: Choose appropriate AI models based on task requirements
+- **Optimize costs**: Reduce API call costs through intelligent routing
+- **Improve performance**: Select optimal models for different task types
+- **Enhance availability**: Support multiple AI providers to avoid single points of failure
+
+This tool is particularly suitable for teams and individual developers who need to handle large amounts of AI interactions, significantly improving development efficiency and cost-effectiveness.
+
+---
+
+*Claude Code Router is an indispensable tool in the Claude Code ecosystem, providing developers with flexible, efficient, and economical AI model routing solutions.* 
