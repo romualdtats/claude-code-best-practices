@@ -1,0 +1,276 @@
+---
+title: "One and a Half Months of Intensive Claude Code Usage Experience"
+description: "Personal experience and insights from intensive use of Claude Code over one and a half months"
+lang: en
+author: "onevcat"
+source: "https://onevcat.com/2025/08/claude-code/"
+date: "2025-08-03"
+---
+
+![Claude Welcome](/images/onevcat-article/claude-welcome.jpg)
+
+On a sultry night in mid-June, after quickly completing a task with the help of an API key, I didn't hesitate to click the subscribe button for Claude Max. As a relic of the "buy-once" era, a monthly subscription of one or two hundred dollars was still too advanced for me at the time. But looking back after one and a half months, seeing those tokens worth over $3,000 that I burned through according to API pricing, I seemed to have gotten an incredibly good deal? However, recently Anthropic [announced new weekly limits](https://x.com/AnthropicAI/status/1949898502688903593), which I guess are targeting "heavy" users like me. So in recent days, I've been researching whether there are other alternatives that can free me from these restrictions. But after trying various options (including CC connecting to other APIs, as well as Codex/Gemini/Qwen/Crush/Amp/AugmentCode, etc.), it seems that for now, Claude Code (hereinafter referred to as CC) still has no competitors in this field. Since I still need to renew my subscription, I might as well make a periodic summary to record some of my experiences using CC over this one and a half months.
+
+## The Iteration Speed of Vibe Coding
+
+When it comes to vibe coding, what really amazes me is not how intelligent the model is or what cutting-edge tasks it can complete, but rather the improvement in product iteration speed that it brings. There's an interesting phenomenon: Claude Code itself is a product of Anthropic's internal dogfooding: from mid-June when I started using it until now, in just one and a half months, we've witnessed many brand new features: custom commands let us avoid repeatedly typing the same prompts, the Hooks feature can automatically execute commands when various events are triggered, and Subagent solves the context window limitation problem. This update frequency would be unimaginable in the traditional software development era.
+
+It's not just CC; the entire AI-assisted development field is advancing at a dizzying speed. Completing a product in days or even hours is no longer an impossible task.
+
+However, this acceleration brings an interesting paradox: AI does liberate developers' hands, freeing us from those tedious boilerplate codes. But on the other hand, when everyone is driving a "Ferrari," the competition on the track becomes even more intense. Before, you could carefully polish a feature; now? Competitors might have already rapidly iterated three or four versions using AI. The craftsman-style polishing approach will undoubtedly be left behind on the beach.
+
+To be honest, sometimes I miss that era of slow work and fine craftsmanship. But reality is like this: the wheel of technology rolls forward, you either keep up or get run over. Adapting to and utilizing it, rather than being swept along, might be the foundation for survival in the new era. If you can only remember one sentence from this article, I hope it's this: **In the vibe coding era, never let tools drive you to death.** Efficiency has improved, but people are still people. We need not just faster development speed, but also time to think and space to live.
+
+## Transition from Traditional Editor AI
+
+Before diving into CC, I was also an old user of various AI editors. From the earliest Cursor, to later Windsurf, to GitHub Copilot and various VS Code plugins like Cline, I've basically tried all the well-known ones on the market. But to be honest, these Editor AI tools didn't bring me the same level of impact and shock as CC.
+
+I think the biggest problem with these editor tools might be **lack of global awareness**. Imagine the classic scenario when you use these editor AIs: open a file, select a few lines of code, then let AI help you modify them. This interaction mode naturally boxes developers' thinking within the scope of the **current file** or even **these few lines**. This mode is indeed a good starting point for developers transitioning from traditional programming to AI-assisted programming. After all, you still retain control over the code: AI writes poorly? No problem, I'm ready to step in anytime. But the problem is, if you really want to enter a deep vibe coding state and let AI reach its full potential, this mentality of always being ready to take over can become an obstacle. The less human developers intervene and directly write code, the better the final efficiency and results.
+
+Another more fatal issue is synchronization problems: AI thinks the file is in state A in its context, but the actual file has been modified to state B by the developer, then you let AI continue modifying based on its understanding, and the result is predictable: either chaos is produced, or AI needs to read all the content again. Sometimes just solving the problems caused by this lack of synchronization takes more time than writing code.
+
+Command-line tools are fundamentally different in concept: no fancy interface, no real-time code suggestions, developers can't easily intervene to "fine-tune" during the process. But it's precisely this simplicity that allows it to more deeply understand and operate the entire project. It's not limited by a certain file or a few lines of code, but starts from the project's root directory to build an understanding of the entire codebase. Without the editor as an intermediate layer, it becomes harder for developers to directly modify code, which in some way "forces" you to rely more on and use AI, giving it more information and feedback, which can actually unleash greater efficiency.
+
+Of course, I'm not saying editor AIs are completely useless. Essentially, the current differences between the two come more from usage patterns and model quality rather than architectural design. CC is backed by the big tree of Anthropic, so the model quality is naturally excellent. More importantly, it can use tokens recklessly (though weekly limits were recently added), and this generous approach of quantity over quality has indeed caused a qualitative change at the end, making the final results much better than expected. If editor AIs could also burn tokens freely, the results might not be much worse.
+
+But reality is reality. At least for now, if you want to experience true vibe coding, CC might be the only choice.
+
+## Understanding CC's Boundaries and Strengths
+
+Like all tools, CC, or AI-assisted programming, has its own areas of expertise and weakness. Only by recognizing these boundaries can your vibe coding journey be smoother.
+
+If you let CC analyze a complex piece of code logic, understand the calling relationships between various modules, then draw a sequence diagram or architecture diagram, it will perform quite excellently. This kind of task that requires understanding and summarization is exactly LLM's forte. Or if you want to quickly implement an algorithm, build a project framework, or write test cases, CC can give you satisfactory answers.
+
+However, don't expect it to excel in all scenarios. For example, if you want to do a global variable renaming across the entire codebase, or perform certain complex refactoring that requires precise matching, it would be much more reliable to honestly use the IDE's refactoring features. LLMs are ultimately just probability generators, and these tasks requiring 100% accuracy are not LLM's strong suit from the beginning. If you really need to use AI to help complete such tasks, asking it to write a script to execute and modify code is often more reliable than directly commanding it to modify files.
+
+There's also a more realistic problem: training data bias. CC is like a fish in water when handling frontend code or TypeScript, with various frameworks at its fingertips, CSS tricks that dazzle the eyes, and the latest APIs at its fingertips. But switch to iOS/Swift development? That's a completely different story. Various outdated API usages are commonplace, sometimes it simply fabricates non-existent methods, with serious hallucinations, and the situation is even worse for more niche languages and frameworks. The difference in training set richness directly determines the model's performance in different fields.
+
+There are also many other command-line-based code agents on the market, like Crush, Gemini CLI, etc. But in actual testing, they still have a huge gap compared to CC. CC as a "software-hardware integrated" solution brings huge optimization space: Anthropic is both the model provider and tool developer, this vertical integration allows them to deeply optimize for specific usage scenarios. This is like Apple's ecosystem—when you control both hardware and software, you can do things far beyond what separate combinations can achieve. Other competitors are either limited by model capabilities or tool design, making it difficult to achieve CC's seamless user experience.
+
+## Think First or Practice First
+
+CC provides a very interesting feature: Plan Mode. In this mode, you can first have full discussions with AI, make detailed implementation plans, then start actual coding work. This leads to an interesting topic: should we pursue thinking clearly before acting, or act first to create something then slowly improve it?
+
+In traditional software development, this debate has existed for a long time. The waterfall school says design first then implement, the agile school says rapid iteration. In the AI era, this question has new meaning.
+
+I've seen two extreme usage patterns. The first is "planning addicts": after entering Plan Mode, discuss with AI for an hour, use up context two or three times, from architecture design to specific implementation, from error handling to performance optimization, plan every detail meticulously. When actually starting to write code, basically AI just follows the plan step by step. The other is "reckless flow": start with "implement an XXX feature for me," then watch AI write code rapidly, find it's wrong after finishing, fix it, find new problems after fixing, and so on in cycles.
+
+Which approach is better? Maybe at first glance, planning before execution seems better? But my answer might disappoint you: it depends on the situation.
+
+If you're an experienced developer with a clear understanding of project architecture, then thorough planning beforehand can indeed make subsequent implementation smoother. Especially for existing projects that need to follow specific architectural patterns, Plan Mode can help ensure that AI-generated code conforms to project specifications. I often discuss with AI in Plan Mode: "Our project uses MVVM architecture, how should new features be split into various layers?" "This part already has similar implementations, you need to reference existing implementations and patterns." This kind of discussion helps AI better understand the project's overall structure, generates higher quality code, and developers have better control over specific code.
+
+But if you're completely unfamiliar with a certain tech stack, or working on a brand new exploratory project, then "starting first" might actually be a better choice. In this case, you often don't know what you don't know. So rather than thinking in vain, let AI write a prototype first, run it to see the effect, discover problems then iterate. This approach is particularly suitable for "quick and dirty" projects, or when you just want to quickly validate an idea.
+
+My personal preference? I prefer entering Plan Mode first, discussing with AI before starting implementation. For me, daily maintenance of existing codebases is the majority of my work, I need more stable and reliable iteration, planning first helps me control the overall situation. But when encountering new tech stacks, I'm also not willing to dive in recklessly. Under different tech stacks, many development concepts are common: how to organize maintainable architecture (not just for humans, but also for AI to maintain in the future, reasonable organizational structure is still necessary), how to schedule and arrange code for efficiency, how various modules connect, etc. Even for new tech stacks, appropriate discussion compared to mindless gambling provides a more effective learning method. But the cost of doing this is slowness. If you're in a hurry to launch features, or writing "fast-moving consumer goods" that can ignore code quality, then detailed planning might not be very suitable.
+
+Finally, I want to say that Plan Mode has a hidden benefit: it helps you organize your thoughts. Sometimes you think you've figured things out, but when you really try to say it or write it down, you realize there are still many details you haven't considered. The process of conversing with AI is actually also a process of self-organizing. This is a variation of "rubber duck debugging," which is still valuable in the vibe coding era.
+
+Claude Code's [Best practices official blog post](https://www.anthropic.com/engineering/claude-code-best-practices) introduces several common workflows, such as:
+
+* Explore, plan, code, commit
+* Write tests, commit, code, iterate, commit
+* Write code, screenshot, iterate
+
+Compared to directly using prompt commands to get CC started, first guiding it to understand the current state of the codebase often yields better results. Referencing these common workflows and gradually developing your own style of using AI is also a form of growth.
+
+## Small Steps or Go All Out
+
+In the manual programming era, writing a few hundred lines of code in a day was considered high productivity. But vibe coding has completely changed the game rules: now, you can generate thousands of lines of code in ten minutes, or even complete an entire project in one go. This "productivity explosion" brings a new question: how should we use this capability?
+
+The usage patterns I've seen roughly fall into two schools. One is "small steps, fast running": each time only let AI complete a small feature, verify there are no problems before proceeding to the next step. The other is "one-step completion": directly throw the entire requirement to AI, let it generate all code at once. More extremely, some people will enable `--dangerously-skip-permissions` mode (the so-called yolo mode), letting AI execute any operation without confirmation.
+
+I've deeply tried both approaches, and my conclusion is: **If you can choose, small-step iteration is often always the better choice.**
+
+For example, once I wanted to refactor a module involving modifications to about seven or eight files. I thought at the time, since AI is so powerful, let it handle everything at once! So I described the requirements in detail, then watched CC start outputting code frantically. A few minutes later, modifications of thousands of lines of code were completed, and compilation also passed. I thought: this is too awesome!
+
+However, when actually starting to try it, the nightmare began. First there was a small bug, because with thousands of lines of modifications I was too lazy to read, so I could only describe the situation and let AI fix it; during the fixing process new problems were introduced; fix again, more new problems... After several rounds, the codebase was unrecognizable. Due to too many changes at once, developers lost control, couldn't understand the modifications, and couldn't distinguish which modifications were necessary and which were temporarily added by AI to fix new bugs. The final result was often having to git reset the entire modification and start over.
+
+This experience taught me a lesson: AI's ability to generate code is strong, but its grasp of overall architecture and consideration for long-term maintenance is still limited. Generating too much code at once is like running in the dark—you might run fast, but you might also hit a wall head-on. Moreover, when problems arise, the complexity of debugging increases exponentially.
+
+In contrast, the benefits of small-step iteration are obvious:
+
+1. **High controllability**: Only modify a small part each time, problems are easy to locate and rollback.
+2. **Understandable**: You can follow AI's thinking and understand what each step is doing.
+3. **Quality assurance**: Can test after each step to ensure code quality.
+4. **Learning opportunities**: By observing AI's implementation methods, you can also learn new things.
+
+Of course, I'm not saying "going all out" is completely unacceptable: when implementing new features, if thorough discussion and planning have been done, then human supervision is indeed less necessary, and CC can complete most of the work. If you really want to try the "go all out" development approach, I have several suggestions:
+
+1. **Must have comprehensive tests**: Adopt TDD approach, write tests first (of course AI writes them too), then let AI implement the functionality. This at least ensures basic correctness.
+2. **Good version control**: Create a new branch before starting, ready to rollback at any time.
+3. **Modular approach**: Even if you want to complete many features at once, try to organize by modules, don't mix everything together.
+4. **Cross-review**: AI-generated code might look like it can run, but may hide various problems. For generated code, don't accept everything as-is. The simplest way is to find another AI, feed the changes to it, and see what needs improvement. This kind of iteration often yields good results.
+
+## Task Scale and Context Constraints
+
+Humans and AI are surprisingly similar in one aspect: they handle small tasks with ease, but face large projects and become flustered. For CC, this problem is more obvious because it also faces a hard limitation—200k context window. In the current era where models often give 1M windows, this limitation is indeed quite painful.
+
+In terms of feel, with normal usage of ten or twenty minutes, you'll see context usage skyrocket to over 90%. At this point, CC is like a suitcase stuffed full of things, and it's difficult to put anything else in. Even worse, if automatic compression is triggered during task execution, the entire agent might fall into chaos, forgetting what it's doing, or getting stuck in loops repeating one thing.
+
+So, how to complete complex tasks within the limited context window has become a required course for using CC.
+
+### Task Decomposition is Key
+
+Rather than giving AI a vague requirement like "help me complete an XXX system," it's better to first break down large tasks into specific small tasks. This step is best done in Plan Mode, letting AI help you organize together. For example:
+
+```
+Me: I want to implement a user authentication system, help me break down the requirements
+AI: Good, let's break down the tasks that need to be completed:
+1. Design database table structure (user table, session table, etc.)
+2. Implement registration functionality (validation, encryption, storage)
+3. Implement login functionality (validation, token generation)
+4. Implement middleware (token validation, refresh mechanism)
+5. Add test cases
+...
+```
+
+For tasks that can't be completed in one session, you can let AI document the discussion content and save it to the project (like `dev-note/auth-implementation-plan.md`). This way, even if you start a new session, you can let AI read this document to quickly restore context.
+
+### Using Subagent
+
+CC's recently launched Subagent feature alleviates this problem to some extent. Previously, when CC used the Task tool for tasks, it was actually working in a completely new context. This is equivalent to extending the main session's context window.
+
+Before, we could only use prompt techniques to "induce" CC to use the Task tool, with mixed results. Now with dedicated subagent configuration, stability has greatly improved. You can create specialized agents for different types of tasks:
+
+* Code analysis agent: specifically responsible for understanding existing code structure
+* Code review agent: checking code quality and potential issues
+* Test agent: writing and running test cases
+* Git agent: handling code commits and PRs
+
+By reasonably chaining these agents, even large tasks have a chance to be completed methodically in the same session. Each agent works in an independent context, won't interfere with each other, and won't exhaust the main session's context.
+
+### Manually compact at appropriate times
+
+Although CC will automatically perform context compression, my experience is: taking the initiative is better. When you see context usage approaching full capacity, you might as well manually execute the `/compact` command. This allows compression to happen at a more natural breakpoint. For example, just after completing a feature module, or just after running a round of tests. At this time, compression is less likely to cause AI to lose important information. But if you wait for automatic compression, it might trigger right when you're in the middle of modifying code, which can easily cause problems.
+
+Another trick is: for relatively independent tasks, simply start a new session. Anyway, you've already documented the task plan, and the new session can quickly get started by reading the document. This is much wiser than struggling in a session that's about to explode.
+
+Currently in AI-assisted programming, context windows are still scarce resources, and they need to be managed like memory. Reasonable planning, timely cleanup, and "changing rooms" when necessary can keep the vibe coding experience smooth.
+
+## Making Good Use of Commands and Surrounding Tools
+
+### Command and Hooks
+
+I have a bold statement: **Any similar prompt that has been repeated more than twice should be expressed as a command!**
+
+Typing similar prompts every time is really boring: "Run tests and fix failed cases," "When committing code, please use standard commit messages"... If you find yourself repeating similar requests, stop immediately and spend a minute configuring a command.
+
+Commands have a huge advantage over subagents: they have complete current session context. If your task is highly related to the current work, then command efficiency will be higher. For example, several I commonly use:
+
+* `/test-and-fix`: Run tests, if there are failures automatically try to fix them
+* `/review`: Review current modifications, give improvement suggestions
+* `/commit-smart`: Analyze changes, generate appropriate commit message and commit
+
+As for Hooks, to be honest I don't use them much. Theoretically they can automatically execute commands when specific events are triggered, such as automatically running tests before each commit. But in actual use, I prefer to maintain some control and don't like too many automated things running quietly in the background. But this is purely personal preference. If your workflow is relatively fixed, Hooks can indeed save a lot of trouble.
+
+### MCP
+
+Supplement knowledge that the model doesn't know through [MCP](https://onevcat.com/2025/02/mcp/). My most commonly used scenarios:
+
+**1. Latest Apple Documentation**
+
+Apple's documentation pages heavily use JavaScript rendering, so CC's WebFetch can't grab the content. But through [apple-docs-mcp](https://github.com/kimsungwhee/apple-docs-mcp), I can get the latest and most accurate API documentation. This is a lifesaver for iOS development.
+
+**2. Project Management Integration**
+
+Through [mcp-atlassian](https://github.com/sooperset/mcp-atlassian) connecting to JIRA, you can let CC directly read and update task status, or automatically reply with analysis and implementation, keeping communication smooth.
+
+**3. LSP Support**
+
+CC doesn't yet natively support LSP, but through [mcp-language-server](https://github.com/isaacphi/mcp-language-server), you can get accurate code completion and type information. Especially for languages that CC isn't very familiar with, this feature is hugely valuable.
+
+Configuring MCP might take some time, but it's absolutely worth it. It turns CC from a general tool into an assistant tailored for you.
+
+### Compilation, Analysis, and Testing
+
+Always remember: AI-generated code is garbage without testing.
+
+My workflow is usually like this:
+
+1. List the project's compilation commands, test commands, linter configuration in detail in CLAUDE.md
+2. Compile immediately after completing each small feature
+3. Run relevant tests after compilation passes
+4. Run linter and formatter after tests pass
+
+Sounds tedious? Actually, after configuration, these can all be completed through simple commands and subagents. The key is to make these steps habits, not wait until everything is written before doing them.
+
+If your project supports TDD, that's even better. Let AI write tests based on requirements first, then implement functionality. This usually generates higher quality code because AI has clear goals.
+
+Of course, depending on the compiler's incompetence (you probably know who I'm talking about...) and project scale, the time cost of compilation might be huge. In this case, I'll split modules, trying to only compile modified modules. If this is difficult, you can also use `git worktree` to create multiple working directories: this way you can let multiple tasks proceed in parallel without interference, which also makes up for the time loss from waiting for compilation.
+
+### Beyond Code, Much More is Possible
+
+Don't just treat CC as a code-writing tool, its capabilities go far beyond that.
+
+My current daily usage scenarios:
+
+* Code commits and PRs: After writing code, directly let CC analyze changes, generate commit messages, push code, create PRs. The PR descriptions it generates are often clearer than what I write myself.
+* Writing technical documentation and wikis: Let CC analyze code to generate API documentation, update README, write usage examples. Its documentation is often more standardized and complete, and won't even have grammar errors.
+* JIRA updates: After completing tasks, let CC update ticket status, add comments replying to users, or even create new subtasks. No more clicking around on web pages.
+* Data processing: Need to batch process files, convert formats, clean data? Before I would write scripts, now I directly describe requirements and let CC do it. And when requirements are different each time, I don't need to maintain a bunch of one-time scripts.
+
+More interestingly, CC unlocks the possibility of working anytime, anywhere. Through tools like [VibeTunnel](https://vibetunnel.sh/) or any mobile SSH client, combined with Tailscale, I can connect to my home work machine from anywhere and use my phone to command CC to work. Although it's not suitable for complex planning and interaction with CC, for simple needs like running scripts, fixing small bugs, updating documentation, etc., it's completely feasible. The feeling of being able to implement something immediately when you think of it while out is quite amazing.
+
+Finally, I strongly recommend getting a good microphone. In the vibe coding era, using voice input to describe requirements is more natural and smooth than typing. Current voice recognition is very accurate, and mixed Chinese-English is also handled well. I never thought the microphone I bought to be a game streamer years ago, after gathering dust for so many years, would finally find its true purpose today.
+
+![Microphone](/images/onevcat-article/mic.jpg)
+
+Of course, Mac's built-in voice input is kindergarten level, not worth mentioning in terms of accuracy and ease of use. You definitely need an AI transcription app. I've also tried some, and here's a summary of several excellent current choices:
+
+* [MacWhisper](https://goodsnooze.gumroad.com/l/macwhisper?a=864919667): Bought before, currently using, native macOS app, author supports quickly.
+* [VoiceInk](https://tryvoiceink.com/?atp=k3GcF3): Provides open source for verification, privacy and security, paid for convenience.
+* [Wispr Flow](https://ref.wisprflow.ai/wei-wang-onevcat): Subscription-based, a bit expensive, but wins with beautiful UI and smooth UX.
+
+They're all good choices with similar functionality. Beyond basic voice recognition and input, combined with the ability to connect to LLM for text polishing/modification after transcription, they automatically convert my language into appropriate text and format according to different scenarios. These apps have elevated human-computer interaction to a new level. Voice input content is often clearer and more precise than text I laboriously organize myself. Now, in the vast majority of cases, when I communicate with colleagues in different languages, and when I write PRs and various documents myself, I almost always speak Chinese, then let AI be my "simultaneous interpreter" to convert to appropriate target languages, ensuring accuracy and timeliness.
+
+## Perceived Degradation and More Restrictions
+
+The content I'm about to discuss includes some of my own feelings and some complaints from friends in the community. Many things cannot be confirmed or falsified, so take them as you will.
+
+### Opus is Far Stronger than Sonnet
+
+This is almost a fact: Opus's effect is much better than Sonnet's. After all, the price is there, Opus is 5 times Sonnet's price. The $100 max subscription, with 5-hour time window Opus can only run a few small task quotas before running out. The $200 subscription is barely enough.
+
+If you're a $100 tier user, I suggest developing the habit of manually switching models. Use Sonnet for simple tasks daily, switch to Opus when encountering complex architecture design or tricky bugs.
+
+### Time Mysticism
+
+This sounds ridiculous, but there's definitely a feeling: the effect during American midnight (which is Beijing time daytime) is better than American daytime. Actually, software development is most active in China and the US, and Anthropic doesn't have formal channels in China. So maybe it's because fewer people use it during American nights, server pressure is low, so model performance doesn't degrade? Anyway, if you encounter unsolvable problems early Beijing time, leave them for afternoon processing, and there might be surprises.
+
+### Degradation Concerns
+
+The most worrying thing is this: personal feeling, the usage experience from the previous month was clearly better than the last two weeks. At first I thought it was my own illusion, but complaints in the community are also increasing. A reasonable guess is that resource tension caused by large numbers of developers flooding in. It's like a buffet originally serving 100 people suddenly having 1000 people arrive—decline in food quality is almost inevitable. Combined with recent news of Anthropic seeking new financing and the policy of introducing weekly limits, wanting to profit under this pricing and usage strategy seems impossible.
+
+### The Shadow of Restrictions
+
+From late August, weekly limits are officially implemented. Although officially it's said to be for fair usage, everyone knows the helplessness behind it is insufficient computing power. And it's not excluded that there will be stricter restrictions in the future.
+
+This reminds me of an old joke: Will China solve the GPU problem first, or will America solve the power problem first? Before these two problems are solved, the bottleneck of AI development might not be algorithms, but the most basic hardware resources.
+
+### Some Coping Strategies
+
+Facing these restrictions, we might have to adopt some "use sparingly" techniques:
+
+1. **Tiered usage**: Simple tasks use Sonnet, complex tasks use Opus
+2. **Off-peak usage**: Avoid American work hours, choose periods with low server load
+3. **Improve prompt quality**: Say everything clearly once, reduce token consumption from back-and-forth conversations
+4. **Reasonable use of subagents**: Assign high-consumption tasks to subagents
+5. **Maintain multiple choices**: Although CC is currently the strongest, maintain attention to other tools
+
+## Summary and Future Outlook
+
+One and a half months of CC usage experience has brought surprises, worries, longing for the future, and helplessness with reality. But overall, I feel that I'm truly standing in the process of history. Vibe coding is not just a new way of programming, but a completely new way of thinking. It requires us to rethink what programming is, what creation is, what value is. In this era where AI and humans dance together, may we all find our own rhythm.
+
+Finally, back to the sentence at the beginning of the article: in the vibe coding era, never let tools drive you to death. Technology serves people, not the opposite; work is to give people the opportunity to pursue and think about themselves, not to lose themselves. Maintaining this clarity might be more important than mastering any specific techniques.
+
+---
+
+## Source and Acknowledgments
+
+This article is based on Wang Wei (onevcat)'s original article [One and a Half Months of Intensive Claude Code Usage Experience](https://onevcat.com/2025/08/claude-code/) and has been expanded and localized.
+
+**Original Author**: Wang Wei (onevcat)  
+**Original Link**: https://onevcat.com/2025/08/claude-code/  
+**Publication Date**: August 3, 2025  
+
+Thank you to Wang Wei for sharing this valuable Claude Code practical experience, providing profound insights and practical advice for AI-assisted development. This article retains all technical details, code examples, and best practice descriptions while undergoing appropriate formatting optimization. 
