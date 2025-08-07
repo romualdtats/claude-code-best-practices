@@ -12,23 +12,23 @@
     "vercel-build": "npm install --include=optional && npm run build"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
     "fumadocs-core": "15.6.8",
     "fumadocs-mdx": "11.7.3",
     "fumadocs-ui": "15.6.8",
     "gray-matter": "^4.0.3",
     "next": "15.4.5",
+    "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "sharp": "^0.33.0"
+    "sharp": "^0.33.0",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
     "@types/mdx": "^2.0.13",
     "@types/node": "24.1.0",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2"
   },
   "overrides": {
