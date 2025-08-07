@@ -8,7 +8,8 @@
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "update-indexes": "node scripts/update-indexes.js",
-    "recent-posts": "node scripts/manage-recent-posts.js"
+    "recent-posts": "node scripts/manage-recent-posts.js",
+    "vercel-build": "npm install --include=optional && npm run build"
   },
   "dependencies": {
     "fumadocs-core": "15.6.8",
@@ -17,7 +18,8 @@
     "gray-matter": "^4.0.3",
     "next": "15.4.5",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
@@ -28,5 +30,12 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.9.2"
+  },
+  "overrides": {
+    "sharp": {
+      "optionalDependencies": {
+        "linux-x64": "sharp-linux-x64"
+      }
+    }
   }
 }
