@@ -1,0 +1,148 @@
+---
+title: Cal Rueb's Claude Code Best Practices
+description: Essential Claude Code best practices from Anthropic's Cal Rueb, covering everything from basic setup to advanced techniques with embedded YouTube video.
+lang: en
+---
+
+# Cal Rueb's Claude Code Best Practices
+
+**Published January 15, 2025**
+
+From Anthropic's technical team member Cal Rueb's keynote speech at 'Code w/ Claude', we get a comprehensive showcase of Claude Code's charm and practicality through his personal usage experience, underlying tool principles, applicable scenarios, and best practices. His emphasis on "simple but effective" design philosophy, along with attention to security and permissions, demonstrates that Anthropic has balanced reliability and user experience when building practical tools.
+
+## Complete Presentation Video
+
+<iframe 
+  width="100%" 
+  height="400" 
+  src="https://www.youtube.com/embed/gv0WHhKelSE" 
+  title="Claude Code Best Practices - Cal Rueb" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen>
+</iframe>
+
+## Cal's Personal Journey: From "Addiction" to Core Contributor
+
+Cal shares the story of how he became "addicted" to Claude Code. He's a programmer who loves tinkering with code but often leaves projects unfinished. Last year, when he heard about this tool in the company Slack, he couldn't wait to download and try it over the weekend. He used Claude Code to develop a note-taking app, and he became completely obsessed, carrying his laptop everywhere, pressing Enter while watching the app take shape before his eyes. That feeling of "watching code grow itself" completely changed his perspective on coding.
+
+More interestingly, the Claude Code team has an internal leaderboard tracking employee usage. Cal went crazy "grinding" the tool that weekend, shooting straight to the top, which caught the team's attention. He thus got to know the development team, started contributing his prompt engineering experience, and eventually became a core member responsible for optimizing system prompts, tool descriptions, and evaluation methods.
+
+This story not only makes Claude Code seem fun but also conveys a message: it's friendly to both beginners and experts, capable of rapidly improving coding efficiency.
+
+## Claude Code's Best Use Cases
+
+Cal summarizes several "killer" application scenarios for Claude Code, covering the entire development lifecycle from code exploration to deployment:
+
+### Codebase Exploration
+When jumping into an unfamiliar codebase, Claude Code can help you get up to speed quickly. You can ask it "Where is this feature implemented?" or "Look at the Git history and tell me how this file was recently changed?" It will guide you through the project like an experienced driver, saving you exploration time.
+
+### Brainstorming
+Before writing code, you can have Claude Code search the codebase and propose 2-3 implementation approaches to help clarify your thinking. For example, "I want to add a new feature, search for how to do it and give me a few options."
+
+### Code Writing
+Building applications from scratch (like writing a small game) is super satisfying, and Claude Code can quickly set up frameworks. But what's even more impressive is that it excels at working within existing codebases, such as adding features, writing unit tests, and optimizing code. Because it automatically runs tests, checks TypeScript, and linting, code quality is guaranteed.
+
+### Commits and PRs
+After writing code, let Claude Code help you write clear Git commit messages or PR descriptions, saving time and looking professional.
+
+### Deployment and CI/CD
+Through Claude Code's SDK, you can embed it into CI/CD workflows, such as using it in GitHub Actions to automatically handle certain tasks.
+
+### Debugging and Support
+Encountered an error? Let Claude Code analyze logs and locate issues. Stuck in a Git rebase? It can help you get out of it.
+
+### Code Migration
+For large-scale refactoring (such as upgrading from old Java versions or PHP to React), Claude Code can reduce migration difficulty and help automate some work.
+
+## Best Practices: How to Use Claude Code Effectively
+
+Cal shares several practical tips to maximize Claude Code's value. These suggestions include both basic operations and advanced techniques:
+
+### Basic Setup
+
+#### Using claude.md Files
+This is Claude Code's "memory book." Place a claude.md in your project root or subdirectories, writing project overview, test running methods, code style guidelines, etc. Claude will automatically read this file when starting, essentially giving it a "project manual." You can also place a global claude.md in your user home directory to record personal preferences.
+
+#### Permission Management
+Claude Code's default settings allow read operations freely, but write operations or running commands require confirmation. You can adjust permissions to speed up workflows, such as setting certain commands (like npm run test) to auto-approve, or using "auto-accept mode" (Shift+Tab) to let Claude work directly.
+
+#### Leveraging CLI Tools
+Claude Code excels at terminal operations. Installing GitHub's gh tool or company internal CLI tools can enable it to do more work. Cal recommends prioritizing mature CLI tools rather than relying on MCP servers for everything.
+
+### Workflow Optimization
+
+#### Context Management
+Claude's context window has 200k tokens, but long conversations can fill up. If you see warnings, you can use `/clear` to empty the context (preserving claude.md), or use `/compact` to have Claude summarize the conversation and compress the context to continue working.
+
+#### Plan First
+Don't directly ask Claude to fix bugs. First have it search for issues and create a repair plan. Confirm the plan is reliable before starting, which can save a lot of time. Claude can also automatically generate to-do lists that you can review and adjust.
+
+#### Test-Driven Development
+Have Claude work in small steps, running tests after each code change, checking TypeScript and linting, ensuring everything is okay before committing. This way, even if something goes wrong, you can quickly rollback.
+
+#### Using Screenshots for Assistance
+Claude supports multimodal input. When encountering UI issues, you can take screenshots and throw them at it, such as "Build a webpage based on this mock.png."
+
+### Advanced Techniques
+
+#### Multiple Claude Parallel Processing
+Experts can run 2-4 Claude instances simultaneously (such as using Tmux or multiple tabs), working like conducting an orchestra. Cal admits he usually uses two at most, but has seen four-Claude masters.
+
+#### Strategic Use of Escape Key
+When Claude is working, you can press Escape at any time to interrupt and adjust direction. Double-clicking Escape can also backtrack the conversation and modify previous instructions.
+
+#### Extending Tools
+If default tools aren't enough, you can add MCP servers to unlock more functionality.
+
+#### Headless Automation
+Use Claude Code SDK to run automated tasks in CI/CD or other workflows, such as automatic code review and test writing.
+
+## New Feature Highlights
+
+Cal showcases several newly released features at the end of his presentation, highlighting Claude Code's rapid iteration:
+
+### Model Switching
+Use `/model` to view the current model (default is Sonnet) and switch to Opus. `/config` can also adjust other settings.
+
+### Enhanced Thinking Capability
+New models (Claude 4) support "thinking" between tool calls, enabling smarter problem analysis. For example, asking it to "think hard" to understand project structure, you'll see it searching files while reasoning, with a transparent process.
+
+### IDE Integration
+VS Code and JetBrains plugins are more powerful, with Claude able to sense the files you're currently editing for more precise context.
+
+### Staying Updated
+Claude Code has a public project on GitHub. Cal recommends checking the changelog weekly to keep up with new features.
+
+## Audience Q&A: Solving Real Problems
+
+At the end of the presentation, Cal answers several audience questions, revealing some practical information:
+
+### What about multiple claude.md files?
+By default, it only reads the claude.md in the current directory, but Claude will read relevant claude.md files when searching subdirectories. You can also use @ to reference other files in claude.md for flexible combinations.
+
+### What if Claude doesn't follow claude.md?
+Early models were indeed a bit "stubborn," such as adding unnecessary code comments. Claude 4 has improved instruction-following capability. Cal recommends upgrading the model and checking claude.md content, deleting outdated instructions.
+
+### How to handle multi-agent collaboration?
+There's currently no native support for complex multi-agent context sharing, but you can have agents write shared files (like ticket.md) to pass state. There may be more elegant solutions in the future.
+
+## Core Insights
+
+Claude Code uses agentic search (grep, find, glob) to naturally explore codebases, just like humans do. No fancy indexing needed.
+
+The presentation covers much more detail on context management, integration setup, and real workflows. Definitely worth the full watch if you're serious about maximizing Claude Code.
+
+## Summary
+
+Cal Rueb's sharing provides us with a comprehensive Claude Code usage guide, from basic setup to advanced techniques, from personal use to team collaboration. His personal experience and practical advice make this powerful tool more approachable and practical.
+
+Key takeaways:
+- **Simple but effective**: Claude Code's design philosophy
+- **claude.md files**: Key to persistent context
+- **Permission management**: Balancing security and efficiency
+- **Plan first**: Don't jump directly into coding
+- **Multimodal support**: Combining screenshots and text
+- **Continuous learning**: Keeping up with new features and best practices
+
+Through these best practices, you can fully leverage Claude Code's powerful features to improve your coding efficiency and code quality. 

@@ -1,0 +1,216 @@
+---
+title: "How I use Claude Code (+ my best tips)"
+description: "A comprehensive guide from a Cursor power user who switched to Claude Code, including practical tips, workflow optimization, and real-world usage patterns."
+language: "en"
+author: "Steve Sewell"
+source: "https://www.builder.io/blog/claude-code"
+date: "2025-01-15"
+---
+
+# How I use Claude Code (+ my best tips)
+
+I've been a Cursor power user for over a year. I wrote [the guide to Cursor tips](https://www.builder.io/blog/cursor-tips) that thousands of developers reference every week. I've gone deep down the rabbit hole on every Cursor power feature and agent mode best practice.
+
+And I've abandoned it all for Claude Code.
+
+For weeks now, I've been living entirely in Claude Code instead of Cursor's agents. And honestly, there's no going back.
+
+Here's how I use Claude Code and my best tips for getting the most out of it.
+
+## Use the VS Code extension
+
+First things first: install the Claude Code extension. It works with VS Code, Cursor, and probably Windsurf too. Don't expect fireworks, it's basically just a launcher. But it makes opening Claude Code dead simple, and you can run multiple instances in parallel in different panes in your IDE as long as they're working on different parts of your codebase.
+
+I still use Cursor for quick Command+K completions and tab completions. But the agent sidebar? I only touch it when Claude is down.
+
+The weird thing is how my workflow has evolved. I used to have Claude as a small sidebar while coding in the main editor. Now I default to Claude first and only peek at code when reviewing changes. It's become my primary interface, not my secondary one.
+
+## The terminal UI is good
+
+Yeah, I was skeptical too. A terminal interface for chat-based code editing? Sounds like a step backward. But Anthropic did a decent job with it.
+
+You can @-tag files easily, use slash commands (which are helpful), and choose exactly what context to include. I mostly stick with Opus unless it's having one of its moments, then I switch to Sonnet. Most people should probably just use the defaults - it'll use Opus until you hit 50% usage, then switch to Sonnet for cost efficiency.
+
+Pro tip: use `/clear` often. Every time you start something new, clear the chat. You don't need all that history eating your tokens, and you definitely don't need Claude running compaction calls to summarize old conversations. Just clear it and move on.
+
+The up arrow lets you navigate back through past chats, even from previous sessions. Handy when you need to reference something from yesterday.
+
+## The permission system will drive you insane
+
+Here's the most annoying thing about Claude Code: it asks permission for everything. You type a prompt, it starts working, you go check Slack, come back five minutes later, and it's just sitting there asking "Can I edit this file?"
+
+Yes, you can edit files. That's literally the point.
+
+Same with running basic commands. "Can I run lint?" YES. My god, just yes.
+
+There's a solution though. Every time I open Claude Code, I hit Command+C and run `claude --dangerously-skip-permissions`. It's not as dangerous as it sounds — think of it as Cursor's old yolo mode. Could a rogue agent theoretically run a destructive command? Sure. Have I seen it happen in weeks of usage? Never.
+
+Your call on the risk tolerance, but I sleep fine at night.
+
+## The GitHub integration is actually useful
+
+One of the cooler slash commands is `/install-github-app`. After you run it, Claude will automatically reviews your PRs.
+
+This is actually useful because as you use more AI tools, your PR volume increases. And honestly? Claude often finds bugs that humans miss. Humans nitpick variable names. Claude finds actual logic errors and security issues.
+
+The key is customizing the review prompt. Out of the box, it's way too verbose and comments on every little thing. Claude will add a `claude-code-review.yml` file with a prompt already in it. Here's what I use instead:
+
+```yaml
+# claude-code-review.yml
+direct_prompt: |
+  Please review this pull request and look for bugs and security issues. Only report on bugs and potential vulnerabilities you find. Be concise.
+```
+
+The original issue we found with this tool is it was really verbose. It would comment on all kinds of nuanced, unimportant things and write a whole essay on every PR. What we really care about most is bugs and potential vulnerabilities. So we tell it exactly that, and to be concise.
+
+There's other cool stuff it can do too, like pull comments from a GitHub pull request and address them, or review a pull request directly.
+
+## The quirks you need to know
+
+Since it's a terminal interface, there are some non-obvious behaviors:
+
+* **Shift+Enter** doesn't work by default for new lines. Just tell Claude to set up your terminal with `/terminal-setup` and it'll fix it for you.
+* **Dragging files in** normally opens them in a new tab like in Cursor or VS Code. Hold Shift while dragging to reference them properly in Claude.
+* **Pasting images** from clipboard doesn't work with Command+V. Use Control+V instead. Took me forever to figure that out.
+* **Stopping Claude** isn't Control+C (that just exits entirely). Use Escape to actually stop Claude.
+* **Jumping to previous messages**: Escape twice shows a list of all previous messages you can jump back to.
+
+There's also a Vim mode if you're into that. I'm not.
+
+## Claude Code handles large codebases better
+
+Here's the real difference: we have a React component at Builder that's 18,000 lines long. (Don't @ me about code organization, I know.) No AI agent has ever successfully updated this file except Claude Code.
+
+When using Cursor, I still find a lot of little hiccups. It has trouble resolving patches, has to rewrite files often, and really struggles to update extremely large files.
+
+This isn't just about file size, Claude Code works great with complex tasks. I find it gets stuck incredibly rarely (I'm not even sure if I've noticed it at all). With Cursor, I feel like I have to babysit it more, and when it gets stuck, I have to stop it and realize maybe this wasn't a good task to ask.
+
+Claude is also exceptionally good at navigating large codebases, searching for patterns, understanding relationships between different parts of the code, components, shared state, stuff like that. It's honestly kind of incredible.
+
+## The economics make sense
+
+Think about it: Cursor built a general-purpose agent that supports multiple models. They need a whole team for that, plus they trained custom models, plus they need to make a profit on top of paying Anthropic for the underlying models.
+
+Anthropic definitively makes the best coding models, and they make Claude Code the best at using those models. When they hit challenges with Claude Code, they go and make the model better.
+
+![Claude Code Model Training](/images/builder-claude-code/image-1.png)
+
+They know everything about how the model works, how it's trained, and how to use it in depth. They continue to train the model to work well with what they need for Claude Code.
+
+It also means Anthropic can give you the most possible value for the least possible price because you only have to worry about paying them.
+
+They can compete on giving you maximum access to models like Opus without situations like Cursor has, where Cursor has to make money too.
+
+![Direct Model Access](/images/builder-claude-code/image-2.png)
+
+It's like buying direct from the manufacturer instead of through a reseller. Of course it's better.
+
+## The pricing is reasonable
+
+I pay for the max plan at $100/month. If you think a shockingly intelligent coder working 24/7 isn't worth $100/month, you need to look at what you charge for your own time. Look at what a human costs per hour for engineering, regardless of where you look in the world, it's orders of magnitude more than that.
+
+Any manager doing that math will see it's overwhelmingly worth it, even at the highest possible pricing tiers.
+
+## The queuing system is handy dandy
+
+One feature I can't live without: message queuing. You can type multiple prompts and Claude will work through them intelligently.
+
+What I used to do is create a notepad and start drafting other prompts that I wanted to do. Then when I saw one was done, I'd go paste the next one and hit enter. That's what I did with Cursor, which is really annoying because I'll usually go about my day, answer Slack messages, answer email, do something else, and come back to see the agent's been idle for who knows how long.
+
+Now I just queue everything up: "Add more comments," "Actually also …," "And … too." Claude is really smart about knowing when it should actually run those things. If it needs feedback from you, it's not going to automatically run the queued messages. It's a pretty smart system, but when it's wrapped up something, it'll start addressing them when it makes sense.
+
+You can queue up a lot, go about your day, and in a lot of cases just come back to a ton of work done in a good and smart way. But check it from time to time because it might need your input.
+
+## The customization goes pretty deep
+
+Claude Code supports custom hooks, slash commands, and project-specific configuration. The cool part? You can have Claude build these for you.
+
+I asked Claude to add a couple default hooks, commands, and settings. It looked at my project and created a settings file that I can easily edit, with a few notable highlights:
+
+It added a `CLAUDE.md` file, which gives a bit of project overview and some key commands that it should know about. This prevents it from having to figure that out each time and scan the codebase for "is there a build command or a lint command?" It always has awareness of that.
+
+It adds some hooks for what code should run before edits are accepted, such as run Prettier on a specific file, or after edits, like write a type check on a specific file to make sure that it only accepts good and correct files.
+
+You can create your own hooks via a `.claude/settings.json` file in your project directory, configured like this:
+
+```json
+{
+  "hooks": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "prettier --write \"$CLAUDE_FILE_PATHS\""
+        }
+      ]
+    },
+    {
+      "matcher": "Edit",
+      "hooks": [
+        {
+          "type": "command", 
+          "command": "if [[ \"$CLAUDE_FILE_PATHS\" =~ \\.(ts|tsx)$ ]]; then npx tsc --noEmit --skipLibCheck \"$CLAUDE_FILE_PATHS\" || echo '⚠️ TypeScript errors detected - please review'; fi"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Claude Code hooks are shell commands that execute at various points in Claude Code's lifecycle - like PreToolUse (before tool execution), PostToolUse (after tool completion), Notification (when Claude sends notifications), and Stop (when Claude finishes responding).
+
+The hooks receive JSON data via stdin containing session information and can control execution flow through exit codes or JSON output.
+
+For example, you can create hooks that automatically format code after file modifications, validate inputs before allowing edits, or send custom notifications. The matcher field supports exact strings (like "Edit") or regex patterns (like "Edit|Write" or "Notebook.*") to specify which tools trigger the hook.
+
+You can also use the interactive `/hooks` command in Claude Code to configure hooks through a menu interface, which is often easier than editing JSON directly.
+
+### Creating custom slash commands
+
+You can also add custom slash commands pretty easily. To add commands, just create a `.claude/commands` folder, add the command name as a file with a `.md` extension. You just write these in natural language and you can use the `$ARGUMENTS` string to place arguments into the prompt.
+
+For example, if I want to output a test, I can create `.claude/commands/test.md`:
+
+```markdown
+# .claude/hooks/test.md
+Please create comprehensive tests for: $ARGUMENTS
+
+Test requirements:
+- Use Jest and React Testing Library
+- Place tests in __tests__ directory
+- Mock Firebase/Firestore dependencies
+- Test all major functionality
+- Include edge cases and error scenarios
+- Test MobX observable state changes
+- Verify computed values update correctly
+- Test user interactions
+- Ensure proper cleanup in afterEach
+- Aim for high code coverage
+```
+
+Then `/test MyButton` does exactly what you'd expect. You can even have subfolders - those we can access like `/builder/plugin` which would match a `builder` folder with a `plugin.md` file. That's how we can create a new Builder plugin super easily.
+
+### Memory system
+
+Another cool feature is you can use the `#` symbol to add memory super fast. Like "always use MUI components for new stuff," and it'll automatically save that to the most relevant file.
+
+`CLAUDE.md` files can be hierarchical, so you can have one project-level and you can have one in nested directories. It looks at them all and prioritizes the most specific, the most nested when relevant.
+
+You can also save this to global user memory preferences you want to apply everywhere, or local project memory that's specific to you and gets git-ignored. Add it to any of these files and it'll write it for you.
+
+## When you want a normal UI
+
+The terminal interface isn't always ideal. Sometimes you just want to click and highlight text like a normal person.
+
+That's where our [Builder.io](https://builder.io/) extension comes in. You can launch a visual interface from your IDE that works exactly like Claude Code under the hood. We reverse-engineered it as closely as possible. You get a normal chat interface, live preview, and you can even switch to a Figma-style design mode to make visual edits.
+
+Your whole team can use it — designers, PMs, whoever. They can create prototypes, clean up UIs, and submit PRs without needing to understand the terminal interface.
+
+Internally at Builder, we've been using this to let our engineers focus on the hard engineering work while other teams handle UI details and pixel-perfect implementations.
+
+Then, when our engineering team needs updates to PRs, we can just take the @builderio-bot and Claude will automatically address feedback and push up commits to address.
+
+---
+
+*This article is based on the original work by Steve Sewell from Builder.io. You can find the original article at [https://www.builder.io/blog/claude-code](https://www.builder.io/blog/claude-code).*

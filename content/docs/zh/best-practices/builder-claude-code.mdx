@@ -1,0 +1,216 @@
+---
+title: "我如何使用 Claude Code（+ 我的最佳技巧）"
+description: "来自 Cursor 高级用户的全面指南，讲述如何切换到 Claude Code，包括实用技巧、工作流程优化和真实使用模式。"
+language: "zh"
+author: "Steve Sewell"
+source: "https://www.builder.io/blog/claude-code"
+date: "2025-01-15"
+---
+
+# 我如何使用 Claude Code（+ 我的最佳技巧）
+
+我已经是 Cursor 的高级用户超过一年了。我写了 [Cursor 技巧指南](https://www.builder.io/blog/cursor-tips)，每周都有数千名开发者参考。我已经深入研究了 Cursor 的每个高级功能和代理模式最佳实践。
+
+而现在我完全放弃了这些，转向了 Claude Code。
+
+几周以来，我完全生活在 Claude Code 中，而不是 Cursor 的代理。老实说，我已经回不去了。
+
+以下是我使用 Claude Code 的方法以及充分利用它的最佳技巧。
+
+## 使用 VS Code 扩展
+
+首先：安装 Claude Code 扩展。它适用于 VS Code、Cursor，可能也适用于 Windsurf。不要期待什么神奇效果，它基本上只是一个启动器。但它让打开 Claude Code 变得非常简单，只要它们处理代码库的不同部分，你就可以在 IDE 的不同窗格中并行运行多个实例。
+
+我仍然使用 Cursor 进行快速的 Command+K 补全和 Tab 补全。但代理侧边栏？我只在 Claude 宕机时才碰它。
+
+奇怪的是我的工作流程是如何演变的。我以前在编码时让 Claude 作为主编辑器中的小侧边栏。现在我默认先使用 Claude，只在审查更改时才瞥一眼代码。它已经成为我的主要界面，而不是次要界面。
+
+## 终端 UI 很好
+
+是的，我也曾经怀疑过。基于聊天的代码编辑的终端界面？听起来像是倒退。但 Anthropic 做得不错。
+
+你可以轻松地 @-tag 文件，使用斜杠命令（这很有用），并精确选择要包含的上下文。我主要坚持使用 Opus，除非它出现问题时，我就切换到 Sonnet。大多数人可能应该只使用默认设置 - 它会使用 Opus 直到你达到 50% 的使用量，然后切换到 Sonnet 以节省成本。
+
+专业提示：经常使用 `/clear`。每次开始新任务时，清除聊天记录。你不需要所有这些历史记录消耗你的 token，你肯定也不需要 Claude 运行压缩调用来总结旧对话。直接清除并继续。
+
+上箭头让你可以浏览过去的聊天记录，甚至来自之前的会话。当你需要参考昨天的内容时很方便。
+
+## 权限系统会让你发疯
+
+这是 Claude Code 最烦人的地方：它对一切都要求权限。你输入一个提示，它开始工作，你去查看 Slack，五分钟后回来，它只是坐在那里问"我可以编辑这个文件吗？"
+
+是的，你可以编辑文件。这本来就是重点。
+
+运行基本命令也是如此。"我可以运行 lint 吗？"是的。天哪，就是是的。
+
+不过有解决方案。每次我打开 Claude Code，我按 Command+C 并运行 `claude --dangerously-skip-permissions`。它没有听起来那么危险 — 把它想象成 Cursor 的老 yolo 模式。理论上一个流氓代理可能运行破坏性命令吗？当然。我在几周的使用中见过这种情况吗？从来没有。
+
+你决定风险承受能力，但我晚上睡得很好。
+
+## GitHub 集成实际上很有用
+
+比较酷的斜杠命令之一是 `/install-github-app`。运行后，Claude 会自动审查你的 PR。
+
+这实际上很有用，因为随着你使用更多 AI 工具，你的 PR 数量会增加。老实说？Claude 经常发现人类遗漏的 bug。人类挑剔变量名。Claude 发现实际的逻辑错误和安全问题。
+
+关键是自定义审查提示。开箱即用，它太冗长了，对每件小事都评论。Claude 会添加一个 `claude-code-review.yml` 文件，里面已经有提示。我使用这个替代：
+
+```yaml
+# claude-code-review.yml
+direct_prompt: |
+  Please review this pull request and look for bugs and security issues. Only report on bugs and potential vulnerabilities you find. Be concise.
+```
+
+我们发现这个工具的原始问题是它真的很冗长。它会评论各种细微的、不重要的事情，并为每个 PR 写一整篇文章。我们真正关心的是 bug 和潜在漏洞。所以我们明确告诉它这一点，并要求简洁。
+
+它还能做其他很酷的事情，比如从 GitHub pull request 中拉取评论并处理它们，或直接审查 pull request。
+
+## 你需要知道的怪癖
+
+由于它是终端界面，有一些不明显的行为：
+
+* **Shift+Enter** 默认不适用于换行。只需告诉 Claude 用 `/terminal-setup` 设置你的终端，它会为你修复。
+* **拖拽文件** 通常像在 Cursor 或 VS Code 中一样在新标签页中打开它们。按住 Shift 拖拽可以在 Claude 中正确引用它们。
+* **粘贴图片** 从剪贴板不能用 Command+V。使用 Control+V。我花了很长时间才弄明白。
+* **停止 Claude** 不是 Control+C（那只是完全退出）。使用 Escape 来实际停止 Claude。
+* **跳转到之前的消息**：按两次 Escape 显示你可以跳转回去的所有之前消息的列表。
+
+如果你喜欢的话，还有 Vim 模式。我不喜欢。
+
+## Claude Code 更好地处理大型代码库
+
+这是真正的区别：我们在 Builder 有一个 18,000 行的 React 组件。（不要 @ 我关于代码组织，我知道。）除了 Claude Code，没有 AI 代理成功更新过这个文件。
+
+使用 Cursor 时，我仍然发现很多小问题。它在解析补丁时有困难，经常重写文件，在更新极大的文件时真的很挣扎。
+
+这不仅仅是关于文件大小，Claude Code 在复杂任务上表现很好。我发现它很少卡住（我甚至不确定是否注意到过）。使用 Cursor 时，我感觉我必须更多地监督它，当它卡住时，我必须停止它并意识到也许这不是一个好的任务。
+
+Claude 在导航大型代码库、搜索模式、理解代码不同部分之间的关系、组件、共享状态等方面也异常出色。老实说，这有点不可思议。
+
+## 经济学说得通
+
+想想看：Cursor 构建了一个支持多个模型的通用代理。他们需要整个团队，加上他们训练了自定义模型，加上他们需要在支付 Anthropic 底层模型的基础上盈利。
+
+Anthropic 绝对制造最好的编码模型，他们让 Claude Code 成为使用这些模型的最佳工具。当他们在 Claude Code 中遇到挑战时，他们会去改进模型。
+
+![Claude Code 模型训练](/images/builder-claude-code/image-1.png)
+
+他们了解模型如何工作、如何训练以及如何深度使用的一切。他们继续训练模型以很好地配合 Claude Code 的需求。
+
+这也意味着 Anthropic 可以给你最大的价值，最低的价格，因为你只需要担心付给他们。
+
+他们可以在给你最大访问 Opus 等模型方面竞争，而不会有 Cursor 必须赚钱的情况。
+
+![直接模型访问](/images/builder-claude-code/image-2.png)
+
+这就像直接从制造商购买而不是通过经销商。当然更好。
+
+## 定价是合理的
+
+我为最高计划支付 $100/月。如果你认为一个令人震惊的智能编码器 24/7 工作不值得 $100/月，你需要看看你为自己的时间收费多少。看看人类工程师每小时的成本，无论你在世界哪里看，都比这高出几个数量级。
+
+任何做这个计算的经理都会看到它绝对值得，即使在最高可能的定价层级。
+
+## 队列系统很方便
+
+我离不开的一个功能：消息队列。你可以输入多个提示，Claude 会智能地处理它们。
+
+我以前做的是创建一个记事本，开始起草我想要做的其他提示。然后当我看到一个完成时，我会去粘贴下一个并按回车。我在 Cursor 中就是这样做的，这真的很烦人，因为我通常会去处理其他事情，回答 Slack 消息，回复邮件，做其他事情，然后回来看到代理已经闲置了不知道多长时间。
+
+现在我只是把所有东西都排队："添加更多注释，" "实际上还有..."，"还有..."。Claude 很聪明，知道什么时候应该实际运行这些东西。如果它需要你的反馈，它不会自动运行排队的消息。这是一个相当智能的系统，但当它完成某件事时，它会在有意义的时候开始处理它们。
+
+你可以排队很多东西，去处理你的一天，在很多情况下只是回来看到一大堆工作以好的和智能的方式完成了。但要时不时检查一下，因为它可能需要你的输入。
+
+## 定制化程度很深
+
+Claude Code 支持自定义钩子、斜杠命令和项目特定配置。很酷的部分？你可以让 Claude 为你构建这些。
+
+我让 Claude 添加了几个默认钩子、命令和设置。它查看了我的项目并创建了一个我可以轻松编辑的设置文件，有几个值得注意的亮点：
+
+它添加了一个 `CLAUDE.md` 文件，提供项目概览和一些它应该知道的关键命令。这防止它每次都要弄清楚并扫描代码库"是否有构建命令或 lint 命令？"它总是有这种意识。
+
+它为接受编辑前应该运行的代码添加了一些钩子，比如在特定文件上运行 Prettier，或编辑后，比如在特定文件上写类型检查，确保它只接受好的和正确的文件。
+
+你可以通过项目目录中的 `.claude/settings.json` 文件创建自己的钩子，配置如下：
+
+```json
+{
+  "hooks": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "prettier --write \"$CLAUDE_FILE_PATHS\""
+        }
+      ]
+    },
+    {
+      "matcher": "Edit",
+      "hooks": [
+        {
+          "type": "command", 
+          "command": "if [[ \"$CLAUDE_FILE_PATHS\" =~ \\.(ts|tsx)$ ]]; then npx tsc --noEmit --skipLibCheck \"$CLAUDE_FILE_PATHS\" || echo '⚠️ TypeScript errors detected - please review'; fi"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Claude Code 钩子是 shell 命令，在 Claude Code 生命周期的各个点执行 - 如 PreToolUse（工具执行前）、PostToolUse（工具完成后）、Notification（Claude 发送通知时）和 Stop（Claude 完成响应时）。
+
+钩子通过 stdin 接收包含会话信息的 JSON 数据，可以通过退出代码或 JSON 输出控制执行流程。
+
+例如，你可以创建在文件修改后自动格式化代码、在允许编辑前验证输入或发送自定义通知的钩子。matcher 字段支持精确字符串（如 "Edit"）或正则表达式模式（如 "Edit|Write" 或 "Notebook.*"）来指定哪些工具触发钩子。
+
+你也可以使用 Claude Code 中的交互式 `/hooks` 命令通过菜单界面配置钩子，这通常比直接编辑 JSON 更容易。
+
+### 创建自定义斜杠命令
+
+你也可以很容易地添加自定义斜杠命令。要添加命令，只需创建一个 `.claude/commands` 文件夹，添加命令名作为带有 `.md` 扩展名的文件。你只需用自然语言写这些，你可以使用 `$ARGUMENTS` 字符串将参数放入提示中。
+
+例如，如果我想输出测试，我可以创建 `.claude/commands/test.md`：
+
+```markdown
+# .claude/hooks/test.md
+Please create comprehensive tests for: $ARGUMENTS
+
+Test requirements:
+- Use Jest and React Testing Library
+- Place tests in __tests__ directory
+- Mock Firebase/Firestore dependencies
+- Test all major functionality
+- Include edge cases and error scenarios
+- Test MobX observable state changes
+- Verify computed values update correctly
+- Test user interactions
+- Ensure proper cleanup in afterEach
+- Aim for high code coverage
+```
+
+然后 `/test MyButton` 完全按照你的预期工作。你甚至可以有子文件夹 - 那些我们可以像 `/builder/plugin` 一样访问，它会匹配一个带有 `plugin.md` 文件的 `builder` 文件夹。这就是我们如何超级容易地创建新的 Builder 插件。
+
+### 内存系统
+
+另一个很酷的功能是你可以使用 `#` 符号快速添加内存。比如"总是为新东西使用 MUI 组件，"它会自动保存到最相关的文件。
+
+`CLAUDE.md` 文件可以是分层的，所以你可以有一个项目级别的，也可以在嵌套目录中有一个。它会查看所有这些，并在相关时优先考虑最具体的、最嵌套的。
+
+你也可以保存到你想在任何地方应用的全局用户内存偏好，或特定于你的本地项目内存，它会被 git 忽略。添加到这些文件中的任何一个，它会为你写出来。
+
+## 当你想要正常的 UI 时
+
+终端界面并不总是理想的。有时你只想像正常人一样点击和高亮文本。
+
+这就是我们的 [Builder.io](https://builder.io/) 扩展的用武之地。你可以从 IDE 启动一个视觉界面，它在底层完全像 Claude Code 一样工作。我们尽可能接近地反向工程了它。你得到一个正常的聊天界面，实时预览，你甚至可以切换到 Figma 风格的设计模式来进行视觉编辑。
+
+你的整个团队都可以使用它 — 设计师、产品经理，任何人。他们可以创建原型，清理 UI，并提交 PR，而不需要理解终端界面。
+
+在 Builder 内部，我们一直在使用这个让我们的工程师专注于困难的工程工作，而其他团队处理 UI 细节和像素完美的实现。
+
+然后，当我们的工程团队需要更新 PR 时，我们只需要使用 @builderio-bot，Claude 会自动处理反馈并推送提交。
+
+---
+
+*本文基于 Builder.io 的 Steve Sewell 的原创作品。你可以在 [https://www.builder.io/blog/claude-code](https://www.builder.io/blog/claude-code) 找到原文。*

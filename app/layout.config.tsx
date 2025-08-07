@@ -26,13 +26,27 @@ export const baseOptions: BaseLayoutProps = {
   // see https://fumadocs.dev/docs/ui/navigation/links
   links: [
     {
-      text: 'GitHub',
-      url: 'https://github.com/anthropics/claude-code',
+      text: 'Best Practices',
+      url: '/docs',
+    },
+    {
+      text: 'Cookbook',
+      url: 'https://github.com/foreveryh/claude-code-cookbook',
       external: true,
     },
     {
       text: 'Official Docs',
       url: 'https://claude.ai/code',
+      external: true,
+    },
+    {
+      text: 'Build with Claude',
+      url: 'https://www.anthropic.com/learn/build-with-claude',
+      external: true,
+    },
+    {
+      text: 'Author',
+      url: 'https://x.com/Stephen4171127',
       external: true,
     },
   ],
